@@ -4,10 +4,17 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
-import React from "react";
+
+import { useState } from "react";
 export default function App() {
-  const [todo, setTodo] = React.useState("");
+  const [todo, setTodo] = useState(
+    { id: "1", text: "Buy milk",checked: false  },
+    { id: "2", text: "Study React Native", checked: true  },
+  );
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -27,6 +34,40 @@ export default function App() {
         <TouchableOpacity style={styles.containerButton}>
           <Text style={styles.addButton}>+</Text>
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.containerTodos}>
+        <TouchableOpacity style={styles.todosbuuton}>
+          <Text style={styles.todosText}>All</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.todosbuuton}>
+          <Text style={styles.todosText}>Active</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.todosbuuton}>
+          <Text style={styles.todosText}>Done</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ flexDirection: "row" }}>
+        <Pressable
+          onPress={() => setChecked(!checked)}
+          accessibilityRole="checkbox"
+          accessibilityState={{ checked }}
+          style={{
+            width: 22,
+            height: 22,
+            marginLeft: 20,
+            borderWidth: 2,
+            borderColor: "#fff",
+            backgroundColor: checked ? "#fff" : "transparent",
+          }}
+        />
+
+        <Text style={{ color: "#fff", marginLeft: 10, fontSize: 20 }}>
+          task one
+        </Text>
       </View>
     </View>
   );
@@ -82,5 +123,30 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 30,
     fontWeight: "bold",
+  },
+
+  containerTodos: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginVertical: 20,
+  },
+
+  todosbuuton: {
+    backgroundColor: "#ea8912",
+    width: 80,
+    height: 40,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+
+    marginHorizontal: 27,
+  },
+
+  todosText: {
+    color: "#fff",
+    fontSize: 20,
   },
 });
